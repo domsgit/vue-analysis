@@ -4,7 +4,7 @@ const path = require('path')
 const resolve = p => path.resolve(__dirname, '../', p)
 
 // 目录简写
-//  可以实现`@core`就映射到根目录下的`src/core`目录
+//  可以实现`web`就映射到根目录下的`src/platforms/web`目录
 module.exports = {
   vue: resolve('src/platforms/web/entry-runtime-with-compiler'),
   compiler: resolve('src/compiler'),

@@ -58,6 +58,7 @@ const resolve = p => {
 }
 
 // 构建情况列表
+// 参看官方文档了解打包后的差别：https://cn.vuejs.org/v2/guide/installation.html#对不同构建版本的解释
 const builds = {
   // Runtime only (CommonJS). Used by bundlers e.g. Webpack & Browserify
   // 仅运行时(CommonJS)。用于打包，如Webpack和Browserify

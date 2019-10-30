@@ -2,6 +2,7 @@
 
 import { toArray } from '../util/index'
 
+// https://cn.vuejs.org/v2/api/?#Vue-use
 export function initUse (Vue: GlobalAPI) {
   Vue.use = function (plugin: Function | Object) {
     // 已经安装了的插件有哪些？（一开始时为空数组）

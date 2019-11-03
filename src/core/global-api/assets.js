@@ -1,6 +1,8 @@
 /* @flow */
 
 import { ASSET_TYPES } from 'shared/constants'
+// isPlainObject 定义在 src/shared/util.js
+// validateComponentName 定义在 ../util/options.js
 import { isPlainObject, validateComponentName } from '../util/index'
 
 export function initAssetRegisters (Vue: GlobalAPI) {

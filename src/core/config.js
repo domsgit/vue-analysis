@@ -44,6 +44,8 @@ export default ({
   /**
    * Option merge strategies (used in core/util/options)
    * 可选的合并策略（用于`core/util/options)
+   * https://cn.vuejs.org/v2/api/#optionMergeStrategies
+   * https://cn.vuejs.org/v2/guide/mixins.html#自定义选项合并策略
    */
   // $flow-disable-line
   optionMergeStrategies: Object.create(null),
@@ -51,36 +53,42 @@ export default ({
   /**
    * Whether to suppress warnings.
    * 是否忽略取消警告。
+   * https://cn.vuejs.org/v2/api/#silent
    */
   silent: false,
 
   /**
    * Show production mode tip message on boot?
    * 启动时是否显示生产环境提示信息
+   * https://cn.vuejs.org/v2/api/#productionTip
    */
   productionTip: process.env.NODE_ENV !== 'production',
 
   /**
    * Whether to enable devtools
    * 是否开启devtools
+   * https://cn.vuejs.org/v2/api/#devtools
    */
   devtools: process.env.NODE_ENV !== 'production',
 
   /**
    * Whether to record perf
    * 是否记录性能
+   * https://cn.vuejs.org/v2/api/#performance
    */
   performance: false,
 
   /**
    * Error handler for watcher errors
    * 观察者的错误处理程序句柄
+   * https://cn.vuejs.org/v2/api/#errorHandler
    */
   errorHandler: null,
 
   /**
    * Warn handler for watcher warns
    * 观察者的警告处理程序句柄
+   * https://cn.vuejs.org/v2/api/#warnHandler
    */
   warnHandler: null,
 

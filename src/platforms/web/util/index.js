@@ -18,8 +18,10 @@ export function query (el: string | Element): Element {
       process.env.NODE_ENV !== 'production' && warn(
         'Cannot find element: ' + el
       )
+      // 不存在，则返回一个空的元素
       return document.createElement('div')
     }
+    // 存在，返回找到的元素
     return selected
   } else {
     return el

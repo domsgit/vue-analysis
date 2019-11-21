@@ -23,19 +23,20 @@ export const isFF = UA && UA.match(/firefox\/(\d+)/)
 // Firfox有个"watch"方法，挂在Object.prototype上
 export const nativeWatch = ({}).watch
 
-// ???TODO???
+// 是否支持事件中的passive
+// 查看更多内容，参考：https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener
 export let supportsPassive = false
 if (inBrowser) {
   try {
     const opts = {}
     Object.defineProperty(opts, 'passive', ({
-      get () {
+      get() {
         /* istanbul ignore next */
         supportsPassive = true
       }
-    }: Object)) // https://github.com/facebook/flow/issues/285
+    }: Object)) // 解决flow校验get存取器：https://github.com/facebook/flow/issues/285
     window.addEventListener('test-passive', null, opts)
-  } catch (e) {}
+  } catch (e) { }
 }
 
 // this needs to be lazy-evaled because vue may be required before
@@ -64,7 +65,7 @@ export const devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__
 
 // 判断是否是原生支持的
 /* istanbul ignore next */
-export function isNative (Ctor: any): boolean {
+export function isNative(Ctor: any): boolean {
   return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
 }
 
@@ -84,16 +85,16 @@ if (typeof Set !== 'undefined' && isNative(Set)) {
   // 非标准的Set polyfill，仅支持原始类型作为值
   _Set = class Set implements SimpleSet {
     set: Object;
-    constructor () {
+    constructor() {
       this.set = Object.create(null)
     }
-    has (key: string | number) {
+    has(key: string | number) {
       return this.set[key] === true
     }
-    add (key: string | number) {
+    add(key: string | number) {
       this.set[key] = true
     }
-    clear () {
+    clear() {
       this.set = Object.create(null)
     }
   }

@@ -14,7 +14,7 @@ export const unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037
  * Check if a string starts with $ or _
  * 判断某字符串是否以$或_开头
  */
-export function isReserved (str: string): boolean {
+export function isReserved(str: string): boolean {
   const c = (str + '').charCodeAt(0)
   return c === 0x24 || c === 0x5F
 }
@@ -23,7 +23,7 @@ export function isReserved (str: string): boolean {
  * Define a property.
  * 定义属性
  */
-export function def (obj: Object, key: string, val: any, enumerable?: boolean) {
+export function def(obj: Object, key: string, val: any, enumerable?: boolean) {
   Object.defineProperty(obj, key, {
     value: val,
     enumerable: !!enumerable,
@@ -37,12 +37,12 @@ export function def (obj: Object, key: string, val: any, enumerable?: boolean) {
  * 解析简单路径
  */
 const bailRE = new RegExp(`[^${unicodeRegExp.source}.$_\\d]`)
-export function parsePath (path: string): any {
-  if (bailRE.test(path)) {
+export function parsePath(path: string): any {
+  if (bailRE.test(path)) { // 不符合路径规范，则退出
     return
   }
-  const segments = path.split('.')
-  return function (obj) {
+  const segments = path.split('.') // 路径以.分割
+  return function (obj) { // 解析的路径未在obj上找到，则退出
     for (let i = 0; i < segments.length; i++) {
       if (!obj) return
       obj = obj[segments[i]]

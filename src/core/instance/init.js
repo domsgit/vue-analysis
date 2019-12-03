@@ -12,7 +12,7 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 
 let uid = 0
 
-export function initMixin (Vue: Class<Component>) {
+export function initMixin(Vue: Class<Component>) {
   Vue.prototype._init = function (options?: Object) {
     const vm: Component = this
     // a uid
@@ -37,6 +37,7 @@ export function initMixin (Vue: Class<Component>) {
       // optimize internal component instantiation
       // since dynamic options merging is pretty slow, and none of the
       // internal component options needs special treatment.
+      // 优化内部组件实例化，因为动态选项合并非常慢，并且没有内部组件选项需要特殊处理。
       initInternalComponent(vm, options)
     } else {
       vm.$options = mergeOptions(
@@ -77,9 +78,10 @@ export function initMixin (Vue: Class<Component>) {
 }
 
 // 初始化内部组件
-export function initInternalComponent (vm: Component, options: InternalComponentOptions) {
+export function initInternalComponent(vm: Component, options: InternalComponentOptions) {
   const opts = vm.$options = Object.create(vm.constructor.options)
   // doing this because it's faster than dynamic enumeration.
+  // 这样做是因为它比动态枚举要快。
   const parentVnode = options._parentVnode
   opts.parent = options.parent
   opts._parentVnode = parentVnode
@@ -96,7 +98,7 @@ export function initInternalComponent (vm: Component, options: InternalComponent
   }
 }
 
-export function resolveConstructorOptions (Ctor: Class<Component>) {
+export function resolveConstructorOptions(Ctor: Class<Component>) {
   let options = Ctor.options
   if (Ctor.super) {
     const superOptions = resolveConstructorOptions(Ctor.super)
@@ -120,7 +122,7 @@ export function resolveConstructorOptions (Ctor: Class<Component>) {
   return options
 }
 
-function resolveModifiedOptions (Ctor: Class<Component>): ?Object {
+function resolveModifiedOptions(Ctor: Class<Component>): ?Object {
   let modified
   const latest = Ctor.options
   const sealed = Ctor.sealedOptions

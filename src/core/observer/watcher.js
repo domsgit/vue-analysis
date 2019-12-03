@@ -122,6 +122,7 @@ export default class Watcher {
     } finally {
       // "touch" every property so they are all tracked as
       // dependencies for deep watching
+      // 如果配置了深度监听，则遍历每一个属性，作为依赖监听
       if (this.deep) {
         traverse(value)
       }
@@ -171,6 +172,8 @@ export default class Watcher {
   /**
    * Subscriber interface.
    * Will be called when a dependency changes.
+   * 订阅接口。
+   * 当依赖有变时，会被调用。
    */
   update() {
     /* istanbul ignore else */
@@ -186,19 +189,23 @@ export default class Watcher {
   /**
    * Scheduler job interface.
    * Will be called by the scheduler.
+   * 任务调度接口。
+   * 将会被调度器调用执行。
    */
   run() {
     if (this.active) {
       const value = this.get()
+      // 当值变化了 或者 value是对象 或者 设置了deep为true
       if (
         value !== this.value ||
         // Deep watchers and watchers on Object/Arrays should fire even
         // when the value is the same, because the value may
         // have mutated.
+        // 即使值相同，深度观察者和对象/数组上的观察者也应触发，因为该值可能已突变。
         isObject(value) ||
         this.deep
       ) {
-        // set new value
+        // set new value 设置新值
         const oldValue = this.value
         this.value = value
         if (this.user) {
@@ -217,6 +224,8 @@ export default class Watcher {
   /**
    * Evaluate the value of the watcher.
    * This only gets called for lazy watchers.
+   * 评估当前观察者的值。
+   * 仅在懒观察者中调用获得。
    */
   evaluate() {
     this.value = this.get()
@@ -225,6 +234,7 @@ export default class Watcher {
 
   /**
    * Depend on all deps collected by this watcher.
+   * 依赖此观察者收集的所有依赖。
    */
   depend() {
     let i = this.deps.length
@@ -235,15 +245,19 @@ export default class Watcher {
 
   /**
    * Remove self from all dependencies' subscriber list.
+   * 从依赖订阅列表中移除
    */
   teardown() {
     if (this.active) {
       // remove self from vm's watcher list
       // this is a somewhat expensive operation so we skip it
       // if the vm is being destroyed.
+      // 从实例监听列表中移除
+      // 如果是销毁vm，则为了避免一些消耗高的操作，这里跳过它
       if (!this.vm._isBeingDestroyed) {
         remove(this.vm._watchers, this)
       }
+      // 在依赖列表中移除当前
       let i = this.deps.length
       while (i--) {
         this.deps[i].removeSub(this)

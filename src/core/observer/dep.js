@@ -22,20 +22,24 @@ export default class Dep {
     this.subs = []
   }
 
+  // 新增观察者
   addSub(sub: Watcher) {
     this.subs.push(sub)
   }
 
+  // 移除观察者
   removeSub(sub: Watcher) {
     remove(this.subs, sub)
   }
 
+  // 评估当前目标观察者
   depend() {
-    if (Dep.target) {
+    if (Dep.target) { // 如果有目标观察者
       Dep.target.addDep(this)
     }
   }
 
+  // 观察者订阅了信息，当信息有更新，通知各个观察者
   notify() {
     // stabilize the subscriber list first
     // 稳定订阅列表
@@ -60,11 +64,13 @@ export default class Dep {
 Dep.target = null
 const targetStack = []
 
+// 推入目标观察者
 export function pushTarget(target: ?Watcher) {
   targetStack.push(target)
   Dep.target = target
 }
 
+// 移除目标观察者
 export function popTarget() {
   targetStack.pop()
   Dep.target = targetStack[targetStack.length - 1]
